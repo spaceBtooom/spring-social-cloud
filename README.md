@@ -1,1 +1,1 @@
-# spring-socail-2-cloud
+# spring-social-cloud
