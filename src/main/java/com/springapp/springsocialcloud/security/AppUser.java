@@ -29,7 +29,7 @@ public class AppUser implements UserDetails, OidcUser {
     Collection<? extends GrantedAuthority> authorities;
     @Override
     public Map<String, Object> getClaims() {
-        return attributes;
+        return new HashMap<>();//random data
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AppUser implements UserDetails, OidcUser {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
