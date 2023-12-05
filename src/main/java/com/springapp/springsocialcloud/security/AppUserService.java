@@ -2,6 +2,7 @@ package com.springapp.springsocialcloud.security;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,7 @@ public class AppUserService implements UserDetailsService {
         return users.get(username);
     }
 
+    @Bean
     public OAuth2UserService<OidcUserRequest, OidcUser> oidcLoginHandler() {
         return userRequest -> {
             LoginProvider provider = LoginProvider.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase());
@@ -52,6 +54,7 @@ public class AppUserService implements UserDetailsService {
         };
     }
 
+    @Bean
     public OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2LoginHandler() {
         return userRequest -> {
             LoginProvider provider = getProvider(userRequest);
@@ -79,11 +82,13 @@ public class AppUserService implements UserDetailsService {
     private void createHardcodeUsers(){
         var bil = AppUser.builder()
                 .username("bil")
+                .provider(LoginProvider.APP)
                 .password(passwordEncoder.encode("1234"))
                 .authorities(List.of(new SimpleGrantedAuthority("read")))//verb read write
                 .build();
         var bob = AppUser.builder()
                 .username("bob")
+                .provider(LoginProvider.APP)
                 .password(passwordEncoder.encode("1234"))
                 .authorities(List.of(new SimpleGrantedAuthority("read")))//verb read write
                 .build();
