@@ -57,7 +57,7 @@ public class SecurityConfiguration {
                                 .userService(oauth2LoginHandler)
                                 .oidcUserService(oidcLoginHandler)))
                 .authorizeHttpRequests(c -> c
-                        .requestMatchers("/","/login").permitAll()
+                        .requestMatchers("/","/login", "/user/sign-up","/error").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
